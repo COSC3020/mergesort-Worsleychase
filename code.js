@@ -2,48 +2,36 @@ function mergesort(array) {
     if (array.length <= 1) {
         return array;
     }
-    
-    width = 1; // width of sub array
+
+    let width = 1;
     while (width < array.length) {
-        // break into many sub arrays and merge
         for (let start = 0; start < array.length; start += width * 2) {
-            l = start;
-            m = Math.min(start + width, array.length);
-            r = Math.min(start + width * 2, array.length);
+            // make indicies
+            let mid = Math.min(start + width, array.length);
+            let end = Math.min(start + width * 2, array.length);
+            let left = start;
+            let right = mid;
 
-            // divide into two halves
-            lh = array.slice(l, m);
-            rh = array.slice(m, r);
+            // already sorted
+            if (right >= end || array[mid-1] <= array[right]) {
+                continue;
+            }
 
-            // init indexes for halves
-            i = l;
-            li = 0;
-            ri = 0;
-
-            // merge when non-empty
-            while (li < lh.length && ri < rh.length) {
-                if (lh[li] <= rh[ri]) {
-                    array[i] = lh[li];
-                    li++;
+            // merge halves (now in place)
+            while (left < mid && right < end) {
+                if (array[left] <= array[right]) {
+                    left++;
                 } else {
-                    array[i] = rh[ri];
-                    ri++;
+                    let val = array[right];
+                    for (let i = right; i > left; i--) {
+                        array[i] = array[i-1];
+                    }
+                    array[left] = val;
+                    
+                    left++;
+                    mid++;
+                    right++;
                 }
-                i++;
-            }
-
-            // merge remaining lh
-            while (li < lh.length) {
-                array[i] = lh[li];
-                li++;
-                i++;
-            }
-
-            // merge remaining rh
-            while (ri < rh.length) {
-                array[i] = rh[ri];
-                ri++;
-                i++;
             }
         }
         width *= 2;
