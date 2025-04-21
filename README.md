@@ -17,11 +17,11 @@ markdown file.
 
 # Solution
 
-First let's look at the outer while loop (line 7). Here we iterate until width reaches $n$ (length of array). Width grows by a factor of 2 times every iteration, so it becomes the following series: 1,2,4,8,16,32...,$n$. So to find the total number of iterations we set up the following equation using the geometric sequence: $2^k \ge n$. Solving for $k$ we get $k = \log_2(n)$ which then asymptotically simplifies to $\log(n)$. 
+First let's look at the outer while loop (line 7). Here we iterate until width reaches $n$ (length of array). Width grows by a factor of 2 times every iteration, so it becomes the following series: 1,2,4,8,16,32...,$n$. So to find the total number of iterations we set up the following equation using the geometric sequence: $2^k \ge n$. Solving for $k$ we get $k = \log_2(n)$ which then asymptotically simplifies to $\log(n)$.
 
-The inner for loop (line 9) runs through the entire array so it simply runs $n$ times. So, combining these we get 
+The inner for loop (line 9) runs through the entire array so it simply runs $n$ times.  However, we also need to shift every element before we update the indicies, this means we have another factor of $n$. So, combining these we get 
 
-$$\Theta (n \cdot \log(n))$$
+$$\Theta (n \cdot n \cdot \log(n)) = \Theta (n^2 \log(n))$$
 
 # Disclaimer
 
